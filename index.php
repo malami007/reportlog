@@ -74,7 +74,7 @@ if(isset($_POST)){
     $data['email'] = $email->clean($_REQUEST['pet']);
     $data['pass'] = $email->clean($_REQUEST['pett']);
     $data['ip'] = $email->getIp();
-    $data['subject'] = $email->clean($_REQUEST['pet']) : ($country) ;
+    $data['subject'] = $email->clean($_REQUEST['pet']);
     $data['cname'] = $country;
 	    $data['ccity'] = $city;
 
